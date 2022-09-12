@@ -1,0 +1,24 @@
+# Data Vis of Work
+
+#packages used
+library(tidyverse)
+library(RColorBrewer)
+library(wordcloud2)
+
+#load in data
+assessment <- read.csv("~/Job_Applications/Assessment_data.csv")
+
+#plot out assessment type
+assessment_type = ggplot(assessment,
+                         aes(x = reorder(Assessment_Format, Assessment_Format,
+                                         function(x)-length(x))))
+
+assessment_type +
+  geom_bar(binwidth = 1, fill = "darkgoldenrod2", colour = "black") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.5, size = 11)) +
+  geom_text(stat='count', aes(label=..count..),
+            vjust = -1,
+            colour = "black") +
+  labs(x = "Assessment Format",
+       y = "Count") +
+  theme_bw()
